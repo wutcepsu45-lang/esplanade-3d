@@ -39,19 +39,23 @@ label.ly input:not(:checked)~span.t{color:var(--muted);text-decoration:line-thro
 .hint{font-size:11px;color:var(--muted);min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 @media (min-width:900px){#sheet{left:auto;width:360px;top:auto;max-height:60vh}}
 @media (prefers-reduced-motion:reduce){*{transition:none!important}}
+#topnav{position:absolute;top:0;left:0;right:0;z-index:6;background:var(--panel);border-bottom:1px solid var(--line);padding:8px max(12px,env(safe-area-inset-right,0px)) 8px max(12px,env(safe-area-inset-left,0px));display:flex;gap:8px;align-items:center}
+#topnav b{margin-right:auto;font-size:14px}
+#topnav a{color:var(--fg);text-decoration:none;font:600 13px var(--f-body);border:1px solid var(--line);border-radius:8px;padding:6px 12px}
+#topnav a.on{border-color:var(--accent);color:var(--accent)}
+.chip,.views{top:60px!important}#info{top:128px!important}
 </style>
 <div id="app">
+  <nav id="topnav"><b>Pile wall Esplanade</b><a href="report.html?v=1795464754">รายงาน</a><a href="drawings.html?v=1795464754">แบบ</a><a class="on" href="index.html?v=1795464754">3D</a></nav>
   <canvas id="cv" aria-label="โมเดล 3 มิติ Pile wall Esplanade"></canvas>
   <div class="chip">
     <h1>Pile wall Esplanade · 3D</h1>
     <p>BP1–BP100 · Transfer beam · Opening Stage 1/2 · ผนังรื้อ W1–W17 · เสาอาคาร · ข้อมูลถึง 24.11.2026</p>
   </div>
   <div class="views">
-    <button id="v3d" class="on">3D</button>
+    <button id="v3d" class="on">มุมเอียง</button>
     <button id="vtop">แปลน</button>
     <button id="vside">รูปตัด</button>
-    <a href="report.html" style="font:600 12px var(--f-body);color:#fff;background:var(--accent);border-radius:8px;padding:9px 10px;text-decoration:none;text-align:center">รายงาน</a>
-    <a href="drawings.html" style="font:600 12px var(--f-body);color:var(--fg);background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:8px 10px;text-decoration:none;text-align:center">แบบ</a>
   </div>
   <div id="info" hidden></div>
   <section id="sheet" class="closed">
