@@ -1,0 +1,199 @@
+<!doctype html><html lang="th"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"></head><body><title>BP06 Coring Plan</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@400;600;700&family=IBM+Plex+Mono:wght@500&display=swap">
+<style>
+/* Layout: nav, step rail + section drawing (SVG, true scale 1 m = 100 units) + step detail / level table */
+:root{
+  --bg:#eef1ef; --card:#fff; --fg:#18211e; --muted:#5c6964; --line:#d3d9d5; --accent:#2f6fd6;
+  --soil:#b9a88a; --soilk:#9c8a6b; --conc:#c9cdc9; --beam:#a89e8a; --lean:#d6782a; --steel:#5b6670; --water:#4f9bd9; --warn:#c2352b; --ok:#1f8a4c;
+  --f-body:"IBM Plex Sans Thai",system-ui,sans-serif; --f-mono:"IBM Plex Mono",ui-monospace,monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--bg:#121715;--card:#1b2220;--fg:#e4ebe7;--muted:#97a49e;--line:#33403b;--accent:#6c9cf0;--soil:#6e6250;--soilk:#5a4f40;--conc:#5d6460;--beam:#7d7465;--steel:#9aa6b0;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#121715;--card:#1b2220;--fg:#e4ebe7;--muted:#97a49e;--line:#33403b;--accent:#6c9cf0;--soil:#6e6250;--soilk:#5a4f40;--conc:#5d6460;--beam:#7d7465;--steel:#9aa6b0;color-scheme:dark}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font:14px/1.55 var(--f-body)}
+nav{position:sticky;top:0;z-index:5;background:var(--card);border-bottom:1px solid var(--line);padding:10px max(16px,env(safe-area-inset-right,0px)) 10px max(16px,env(safe-area-inset-left,0px));display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+nav b{font-size:15px;margin-right:auto}
+nav a{color:var(--fg);text-decoration:none;font-weight:600;font-size:13px;border:1px solid var(--line);border-radius:8px;padding:6px 12px}
+nav a.on{border-color:var(--accent);color:var(--accent)}
+main{max-width:1100px;margin:0 auto;padding:16px max(16px,env(safe-area-inset-right,0px)) 40px max(16px,env(safe-area-inset-left,0px));display:grid;gap:14px}
+h1{font-size:21px;margin:0;text-wrap:balance} .sub{color:var(--muted);font-size:12.5px}
+.steps{display:flex;gap:6px;overflow-x:auto;padding-bottom:4px}
+.steps button{flex:none;font:600 12.5px var(--f-body);color:var(--fg);background:var(--card);border:1px solid var(--line);border-radius:999px;padding:7px 12px;cursor:pointer}
+.steps button.on{background:var(--accent);border-color:var(--accent);color:#fff}
+.steps button.done{border-color:var(--ok);color:var(--ok)}
+button:focus-visible,select:focus-visible,input:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.grid{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:14px}
+@media (max-width:820px){.grid{grid-template-columns:1fr}}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px;min-width:0}
+svg{width:100%;height:auto;display:block}
+svg text{font:11px var(--f-body);fill:var(--fg)} svg .m{font:10.5px var(--f-mono);fill:var(--muted)}
+.ctl{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-top:10px}
+.ctl button{font:600 13px var(--f-body);border:1px solid var(--line);background:var(--card);color:var(--fg);border-radius:8px;padding:8px 14px;cursor:pointer}
+.ctl button.pri{background:var(--accent);border-color:var(--accent);color:#fff}
+h2{font-size:16px;margin:0 0 6px} ul{margin:6px 0 0;padding-left:20px} li{margin:3px 0}
+.warn{border-left:4px solid var(--warn);background:color-mix(in srgb,var(--warn) 10%,transparent);padding:8px 10px;border-radius:6px;margin-top:10px;font-size:13px}
+.note{border-left:4px solid var(--accent);background:color-mix(in srgb,var(--accent) 8%,transparent);padding:8px 10px;border-radius:6px;margin-top:10px;font-size:13px}
+table{border-collapse:collapse;width:100%;font-size:13px} td,th{border-bottom:1px solid var(--line);padding:6px 6px;text-align:left}
+td.n{font-family:var(--f-mono);font-variant-numeric:tabular-nums;text-align:right;white-space:nowrap}
+label.f{display:grid;gap:3px;font-size:12.5px;color:var(--muted)} select,input{font:13px var(--f-body);padding:6px 8px;border:1px solid var(--line);border-radius:6px;background:var(--card);color:var(--fg)}
+.inputs{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:8px;margin-top:8px}
+.big{font:700 18px var(--f-mono)}
+.ok{color:var(--ok)} .bad{color:var(--warn)}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+<nav><b>Pile wall Esplanade</b><a href="report.html?v=1795543280">รายงาน</a><a href="drawings.html?v=1795543280">แบบ</a><a class="on" href="sim.html">จำลอง BP06</a><a href="index.html?v=1795543280">3D</a></nav>
+<main>
+  <header><h1>จำลองขั้นตอนตรวจสอบชั้นแข็งที่ BP06</h1><div class="sub">สมมติ: ตอก Casing แล้วเจอของแข็งที่ความลึก 3.50 ม. จากพื้น Basement (+97.519 → +94.019 mRL) · BP06 ห่างขอบ Transfer beam 0.59 ม. · รูปตัดตามมาตราส่วนจริง</div></header>
+  <div class="steps" id="steps" role="tablist"></div>
+  <div class="grid">
+    <div class="card">
+      <svg id="sv" viewBox="0 0 440 650" role="img" aria-label="รูปตัดจำลองหลุม BP06"></svg>
+      <div class="ctl"><button id="prev">‹ ย้อน</button><button id="play" class="pri">▶ เล่นขั้นนี้</button><button id="next">ถัดไป ›</button></div>
+    </div>
+    <div class="card" id="detail"></div>
+  </div>
+  <div class="grid">
+    <div class="card">
+      <h2>ชุดท่อ Casing</h2>
+      <div class="inputs">
+        <label class="f">ท่อที่ใช้<select id="set">
+          <option value="1.10,1.10,1.10">1.10 + 1.10 + 1.10 = 3.30 ม.</option>
+          <option value="1.10,1.10,1.10,0.85">1.10 + 1.10 + 1.10 + 0.85 = 4.15 ม.</option>
+          <option value="1.10,1.10,0.85">1.10 + 1.10 + 0.85 = 3.05 ม.</option>
+          <option value="1.10,1.10,1.10,0.20">1.10 × 3 + ท่อสั้น 0.20 = 3.50 ม.</option>
+        </select></label>
+        <label class="f">ความลึกที่เจอของแข็ง (ม.)<input id="hard" type="number" step="0.05" min="2" max="4.5" value="3.50"></label>
+      </div>
+      <p style="margin:10px 0 0">ปากท่อเทียบพื้น: <span class="big" id="lip"></span></p>
+      <p class="sub" id="lipnote"></p>
+    </div>
+    <div class="card">
+      <h2>ก้านต่อ DD 200 (ประมาณ)</h2>
+      <div class="inputs">
+        <label class="f">ความลึกที่จะ Core ลงในชั้นแข็ง (ม.)<input id="cd" type="number" step="0.05" min="0.1" max="1" value="0.40"></label>
+        <label class="f">ความยาวดอก Core 4" ใช้งานได้ (ม.)<input id="bl" type="number" step="0.05" min="0.2" max="1" value="0.45"></label>
+        <label class="f">ความยาวก้านต่อ 1 ท่อน (ม.)<input id="rl" type="number" step="0.05" min="0.2" max="2" value="1.00"></label>
+        <label class="f">ระยะฐานเครื่อง→หัวจับดอก ตอนกดสุด (ม.)<input id="off" type="number" step="0.05" min="0" max="1.5" value="0.30"></label>
+      </div>
+      <p style="margin:10px 0 0">ปลายดอกต้องลงถึง <span class="big" id="reach"></span> ใต้ฐานเครื่อง → ก้านต่อ <span class="big" id="rods"></span></p>
+      <p class="sub">ค่าเริ่มต้นเป็นค่าสมมติ แก้ตามอุปกรณ์จริงที่หน้างานได้ · ฐานเครื่องตั้งบนเหล็กฉากที่ระดับพื้น</p>
+    </div>
+  </div>
+  <div class="card">
+    <h2>ระดับอ้างอิง</h2>
+    <table><tbody id="lv"></tbody></table>
+  </div>
+</main>
+<script>
+const S = 100, X0 = 150, Y0 = 160, FLOOR = 97.519;           // 1 m = 100 units; floor line at y=70; casing centre x=150
+const y = d => Y0 + d * S;                                   // d = depth below floor (m)
+const sv = document.getElementById('sv');
+const STEPS = [
+  {t:'0. สภาพเดิม', h:'สภาพก่อนเริ่ม', b:['ถอน Casing BP06 เดิมออกแล้ว หลุมเดิมยุบ ดินเหนียวอ่อนไหลกลับ','ใต้พื้นเป็นดินเหนียวอ่อน (Soft clay) มีน้ำใต้ดิน','ขอบ Transfer beam อยู่ห่างผิวเข็ม 0.59 ม. ท้องคาน ≈3.40 ม. (+94.12)','สันนิษฐาน Lean concrete ใต้คาน ยื่นเลยขอบคาน ≈1.5–1.9 ม.'], w:'', n:''},
+  {t:'1. ปัก Casing', h:'ปัก Casing ใหม่จนตอกไม่ลง', b:['ตั้ง Tripod ให้ตรงศูนย์เดิม ตรวจดิ่งด้วยระดับน้ำทุกท่อน','ต่อท่อตามชุดที่เลือก ตอกจนลงไม่ได้ (สมมติที่ความลึก 3.50 ม.)','วัดระดับปากท่อเทียบพื้นทุกท่อน จดความลึกที่ตอกไม่ลงจริง','ถ้าปากท่อต่ำกว่าพื้น ให้วัดความลึกจากพื้นไว้เป็นค่าอ้างอิงตลอดงาน'], w:'อย่าใช้ลูกตุ้มกระแทกแรงเกินจำเป็น เข็มอยู่ชิด Transfer beam ที่รับเสาห้าง', n:''},
+  {t:'2. ล็อกเหล็กฉาก', h:'ล็อกปาก Casing ด้วยเหล็กฉาก', b:['เหล็กฉากพาดยาวเกินขอบช่องพื้นทั้งสองข้าง','ยึดด้วยพุกเคมี/พุกเหล็ก หรือถ่วงน้ำหนัก','กันท่อจมเพิ่มตอนตักดิน และกันท่อหมุนตอน Core','ใช้เป็นฐานยึดขาตั้ง DD 200 ต่อได้'], w:'', n:''},
+  {t:'3. ตักดินออก', h:'ตักดินในท่อด้วยกระบะของ Tripod', b:['ตักทีละน้อย ดึงกระบะขึ้นช้าๆ ไม่ให้ดูดดินจากก้นท่อ','คงน้ำในท่อไว้บ้าง ไม่ต้องสูบจนแห้ง ลดแรงดันน้ำใต้ดินดันดินเข้า','ถ้าตักแล้วดินไหลเข้าก้นไม่หยุด แปลว่าปลายท่อยังไม่แนบชั้นแข็ง → ตอกเพิ่มเล็กน้อย'], w:'ดินเหนียวอ่อนอาจไหลเข้าทางก้นท่อ ถ้าปลายท่อไม่แนบชั้นแข็ง', n:''},
+  {t:'4. ตรวจก้นหลุม', h:'ตรวจสภาพก้นหลุม', b:['วัดความลึกด้วยตลับเมตรถ่วงลูกดิ่ง 3–4 จุดรอบก้นท่อ','แทงเหล็ก/เคาะ ฟังเสียง: คอนกรีต / หิน / เศษวัสดุ','ถ่ายรูปก้นหลุม (มือถือผูกไม้ + ไฟฉาย)','จดระดับน้ำในท่อ และอัตราน้ำซึม'], w:'', n:'ถ้าก้นเอียงมาก หรือเป็นเศษวัสดุหลวม ให้ถ่ายรูปและหยุดรอผู้ควบคุมงานก่อน Core'},
+  {t:'5. Core DD 200', h:'Core ด้วย Hilti DD 200 ดอก 4"', b:['ยึดขาตั้งบนเหล็กฉาก ตั้งดอกกลางท่อ ไม่ให้เฉียดผนัง','เปิดน้ำตลอด เริ่มความเร็วต่ำ กดเบาจนดอกกินเนื้อ','ยกขึ้นเก็บแท่ง Core ทุก ≈0.30 ม. วางบนตลับเมตรแล้วถ่ายรูป','หยุดเมื่อทะลุชั้นแข็งเจอดินอีกครั้ง หรือครบความลึกที่กำหนด'], w:'ถ้าทะลุชั้นแข็ง น้ำใต้ดินอาจดันขึ้นตามรู Core ทันที เตรียมปูนอุดน้ำแข็งตัวเร็วไว้ข้างหลุม · เครื่องใช้ไฟฟ้าในที่เปียก ต้องมีเบรกเกอร์กันไฟรั่ว', n:''},
+  {t:'6. บันทึกผล', h:'บันทึกผลและส่งข้อมูล', b:['ความลึกที่ท่อติด + ชุดท่อที่ใช้ + ระดับปากท่อเทียบพื้น','สภาพก้นหลุม + ระดับน้ำ / น้ำซึม','ชนิดวัสดุ + ความหนาชั้นแข็ง + รูปแท่ง Core บนตลับเมตร','เวลาเริ่ม – เสร็จ ของแต่ละขั้น','อุดรู Core ด้วย Non-shrink grout หลังเก็บตัวอย่าง'], w:'', n:'ข้อมูลนี้ใช้ยืนยันขอบเขต Lean concrete และประกอบ RFI ส่งผู้ออกแบบ'},
+];
+let step = 0, anim = 1, raf = 0;
+const $ = id => document.getElementById(id);
+const pieces = () => $('set').value.split(',').map(Number);
+const hard = () => Math.max(2, Math.min(4.5, +$('hard').value || 3.5));
+function lipDepth() { return hard() - pieces().reduce((a, b) => a + b, 0); } // >0 => lip below floor
+function draw() {
+  const H = hard(), lip = lipDepth(), p = pieces(), tot = p.reduce((a, b) => a + b, 0);
+  const s = step, a = anim; const o = [];
+  const W = 440, cw = 0.5 * S, cx0 = X0 - cw / 2, cx1 = X0 + cw / 2;
+  const beamX = cx1 + 0.59 * S, leanX = beamX - 1.7 * S;
+  // soil + slab
+  o.push(`<rect x="0" y="${y(0)}" width="${W}" height="${650 - y(0)}" fill="var(--soil)"/>`);
+  for (let i = 0; i < 30; i++) o.push(`<path d="M${(i * 37) % 440} ${y(0.6 + (i % 7) * 0.55)} l10 0 m6 0 l6 0" stroke="var(--soilk)" stroke-width="1.2"/>`);
+  o.push(`<rect x="0" y="${y(0)}" width="${cx0 - 0.25 * S}" height="${0.4 * S}" fill="var(--conc)" stroke="var(--fg)" stroke-opacity=".25"/>`);
+  o.push(`<rect x="${cx1 + 0.25 * S}" y="${y(0)}" width="${W}" height="${0.4 * S}" fill="var(--conc)" stroke="var(--fg)" stroke-opacity=".25"/>`);
+  // beam + lean
+  o.push(`<rect x="${beamX}" y="${y(0.4)}" width="${W - beamX}" height="${3.0 * S}" fill="var(--beam)" stroke="var(--fg)" stroke-opacity=".3"/>`);
+  o.push(`<text x="${beamX + 8}" y="${y(1.9)}">Transfer beam</text><text class="m" x="${beamX + 8}" y="${y(1.9) + 14}">ท้องคาน +94.12</text>`);
+  o.push(`<rect x="${leanX}" y="${y(3.40)}" width="${W - leanX}" height="${0.22 * S}" fill="var(--lean)" fill-opacity=".85"/>`);
+  o.push(`<line x1="${leanX}" x2="${W}" y1="${y(3.62)}" y2="${y(3.62)}" stroke="var(--lean)" stroke-dasharray="5 4"/>`);
+  o.push(`<text class="m" x="${beamX + 8}" y="${y(3.86)}">ชั้นแข็ง (สันนิษฐาน Lean)</text><text class="m" x="${beamX + 8}" y="${y(3.86) + 13}">หนา ? · ยื่นเลยขอบคาน ≈1.7</text>`);
+  // groundwater mark
+  o.push(`<path d="M${W - 70} ${y(1.2)} l10 0 l-5 7 z" fill="var(--water)"/><text class="m" x="${W - 56}" y="${y(1.2) + 7}">น้ำใต้ดิน</text>`);
+  // floor line + labels
+  o.push(`<line x1="0" x2="${W}" y1="${y(0)}" y2="${y(0)}" stroke="var(--fg)" stroke-width="1.4"/><text class="m" x="4" y="${y(0) - 6}">พื้น B +97.519</text>`);
+  // depth scale
+  for (let d = 0; d <= 4.5; d += 0.5) o.push(`<line x1="${W - 18}" x2="${W - 8}" y1="${y(d)}" y2="${y(d)}" stroke="var(--fg)"/><text class="m" x="${W - 22}" y="${y(d) + 4}" text-anchor="end">${d.toFixed(1)}</text>`);
+  o.push(`<text class="m" x="${W - 8}" y="${y(4.75)}" text-anchor="end">ม.จากพื้น</text>`);
+  // beam gap dim
+  o.push(`<line x1="${cx1}" x2="${beamX}" y1="${y(2.6)}" y2="${y(2.6)}" stroke="var(--fg)" marker-start="url(#ar)" marker-end="url(#ar)"/><text class="m" x="${(cx1 + beamX) / 2}" y="${y(2.6) - 5}" text-anchor="middle">0.59</text>`);
+  // step 0: collapsed old hole hint
+  if (s === 0) o.push(`<rect x="${cx0}" y="${y(0.4)}" width="${cw}" height="${3.1 * S}" fill="none" stroke="var(--fg)" stroke-dasharray="4 4" stroke-opacity=".5"/><text x="${X0}" y="${y(1.8)}" text-anchor="middle">หลุมเดิม</text><text x="${X0}" y="${y(1.8) + 14}" text-anchor="middle" class="m">(ดินยุบกลับ)</text>`);
+  // casing
+  if (s >= 1) {
+    const toe = s === 1 ? 0.3 + (H - 0.3) * a : H, top = toe - tot;
+    o.push(`<rect x="${cx0}" y="${y(Math.max(top, -0.9))}" width="${cw}" height="${(toe - Math.max(top, -0.9)) * S}" fill="var(--steel)" fill-opacity=".12" stroke="var(--steel)" stroke-width="3"/>`);
+    let acc = top; p.forEach(L => { acc += L; o.push(`<line x1="${cx0 - 4}" x2="${cx1 + 4}" y1="${y(acc)}" y2="${y(acc)}" stroke="var(--steel)" stroke-width="2"/>`); });
+    // soil inside casing (removed in step 3)
+    const soilTop = s < 3 ? Math.max(0.4, top) : s === 3 ? Math.max(0.4, top) + (H - Math.max(0.4, top) - 0.02) * a : H - 0.02;
+    if (soilTop < H) o.push(`<rect x="${cx0 + 2}" y="${y(soilTop)}" width="${cw - 4}" height="${(H - soilTop) * S}" fill="var(--soilk)"/>`);
+    if (s >= 3) { const wl = 1.2 + (s === 3 ? 0.4 * (1 - a) : 0); if (wl < soilTop) o.push(`<rect x="${cx0 + 2}" y="${y(wl)}" width="${cw - 4}" height="${(soilTop - wl) * S}" fill="var(--water)" fill-opacity=".35"/>`); }
+    o.push(`<text class="m" x="${cx0 - 6}" y="${y(H) + 4}" text-anchor="end">ปลายท่อ ${H.toFixed(2)}</text>`);
+    if (s === 1) { // tripod + hammer
+      o.push(`<path d="M${X0 - 70} ${y(0)} L${X0} ${y(-0.62)} L${X0 + 70} ${y(0)}" fill="none" stroke="var(--steel)" stroke-width="3"/>`);
+      const hy = y(top) - 26 - 30 * Math.abs(Math.sin(a * 18));
+      o.push(`<rect x="${X0 - 14}" y="${hy}" width="28" height="22" rx="3" fill="var(--steel)"/><line x1="${X0}" x2="${X0}" y1="${y(-0.62)}" y2="${hy}" stroke="var(--fg)"/>`);
+    }
+  }
+  if (s >= 2) { // angle steel
+    const top = H - tot, ly = y(Math.max(top, 0) ) - 6;
+    o.push(`<rect x="${cx0 - 0.75 * S}" y="${ly}" width="${cw + 1.5 * S}" height="7" fill="var(--steel)"/><text class="m" x="${cx0 - 0.75 * S}" y="${ly - 4}">เหล็กฉากล็อก</text>`);
+    if (top > 0) o.push(`<line x1="${cx0}" x2="${cx0}" y1="${ly + 7}" y2="${y(top)}" stroke="var(--steel)" stroke-width="2"/><line x1="${cx1}" x2="${cx1}" y1="${ly + 7}" y2="${y(top)}" stroke="var(--steel)" stroke-width="2"/>`);
+  }
+  if (s === 3) { // bucket
+    const by = y(0.4) + (y(H - 0.3) - y(0.4)) * (0.5 - 0.5 * Math.cos(a * Math.PI * 6));
+    o.push(`<line x1="${X0}" x2="${X0}" y1="${y(-0.62)}" y2="${by}" stroke="var(--fg)"/><rect x="${X0 - 15}" y="${by}" width="30" height="34" rx="3" fill="none" stroke="var(--fg)" stroke-width="2"/><text class="m" x="${X0 + 22}" y="${by + 20}">กระบะตักดิน</text>`);
+  }
+  if (s === 4) { // tape + probe
+    const ty = y(0.4) + (y(H) - y(0.4)) * Math.min(1, a * 1.4);
+    o.push(`<line x1="${X0 - 12}" x2="${X0 - 12}" y1="${y(-0.3)}" y2="${ty}" stroke="var(--accent)" stroke-width="2"/><circle cx="${X0 - 12}" cy="${ty}" r="4" fill="var(--accent)"/><line x1="${X0 + 12}" x2="${X0 + 12}" y1="${y(-0.3)}" y2="${ty}" stroke="var(--fg)" stroke-width="2"/>`);
+    o.push(`<text x="${cx1 + 6}" y="${y(H) - 6}">วัด / แทง / ถ่ายรูป</text>`);
+  }
+  if (s >= 5) { // core rig
+    const cd = +$('cd').value || 0.4, bitDepth = s === 5 ? H * Math.min(1, a * 1.6) + Math.max(0, a * 1.6 - 1) / 0.6 * cd : H + cd;
+    const bw = 0.1 * S;
+    o.push(`<rect x="${X0 + 40}" y="${y(-1.3)}" width="10" height="${1.3 * S}" fill="var(--steel)"/><rect x="${X0 - 22}" y="${y(-1.3) + 10}" width="70" height="26" rx="4" fill="var(--accent)" fill-opacity=".85"/><text x="${X0 - 18}" y="${y(-1.3) + 28}" style="fill:#fff;font-weight:600">DD 200</text>`);
+    o.push(`<line x1="${X0}" x2="${X0}" y1="${y(-1.3) + 36}" y2="${y(bitDepth - 0.45)}" stroke="var(--fg)" stroke-width="3"/>`);
+    o.push(`<rect x="${X0 - bw / 2}" y="${y(bitDepth - 0.45)}" width="${bw}" height="${0.45 * S}" fill="none" stroke="var(--accent)" stroke-width="2.5"/>`);
+    if (bitDepth > H) o.push(`<rect x="${X0 - bw / 2 + 2}" y="${y(H)}" width="${bw - 4}" height="${(bitDepth - H) * S}" fill="var(--lean)"/>`);
+    o.push(`<text class="m" x="${X0 + 10}" y="${y(bitDepth) + 14}">Core 4" ${bitDepth > H ? '+' + (bitDepth - H).toFixed(2) + ' ม.' : ''}</text>`);
+  }
+  if (s === 6) o.push(`<g transform="translate(16 ${y(4.15)})"><rect width="150" height="44" rx="6" fill="var(--card)" stroke="var(--line)"/><rect x="10" y="16" width="60" height="12" fill="var(--lean)"/><rect x="74" y="16" width="40" height="12" fill="var(--lean)" fill-opacity=".7"/><text class="m" x="10" y="12">แท่ง Core บนตลับเมตร</text><text class="m" x="10" y="40">0 ─── 0.30 ─── 0.60</text></g>`);
+  sv.innerHTML = `<defs><marker id="ar" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="var(--fg)"/></marker></defs>` + o.join('');
+}
+function detail() {
+  const st = STEPS[step];
+  $('detail').innerHTML = `<h2>${st.h}</h2><ul>${st.b.map(x => `<li>${x}</li>`).join('')}</ul>${st.w ? `<div class="warn">${st.w}</div>` : ''}${st.n ? `<div class="note">${st.n}</div>` : ''}`;
+  document.querySelectorAll('#steps button').forEach((b, i) => { b.classList.toggle('on', i === step); b.classList.toggle('done', i < step); b.setAttribute('aria-selected', i === step); });
+}
+function calc() {
+  const lip = lipDepth(), tot = pieces().reduce((a, b) => a + b, 0), H = hard();
+  $('lip').textContent = Math.abs(lip) < 0.005 ? 'เสมอพื้นพอดี' : lip > 0 ? `ต่ำกว่าพื้น ${lip.toFixed(2)} ม.` : `โผล่เหนือพื้น ${(-lip).toFixed(2)} ม.`;
+  $('lip').className = 'big ' + (Math.abs(lip) <= 0.25 && lip >= 0 ? 'ok' : 'bad');
+  $('lipnote').textContent = lip > 0.4 ? 'ปากท่อลึกเกินความหนาพื้น 0.40 ม. ล็อกเหล็กฉากยาก ควรใช้ชุดท่อที่ยาวกว่า' : lip >= 0 ? 'ปากท่ออยู่ในความหนาพื้น ล็อกเหล็กฉากพาดขอบช่องพื้นได้' : 'ปากท่อโผล่เหนือพื้น ต้องยกฐานเครื่อง DD 200 ขึ้นตาม และก้านต่อยาวขึ้น';
+  const cd = +$('cd').value || 0.4, bl = +$('bl').value || 0.45, rl = +$('rl').value || 1, off = +$('off').value || 0;
+  const reach = H + cd + Math.max(0, -lip);
+  const need = Math.max(0, reach - bl - off), n = Math.ceil(need / rl - 1e-9);
+  $('reach').textContent = reach.toFixed(2) + ' ม.'; $('rods').textContent = `${n} ท่อน (${(n * rl).toFixed(2)} ม.)`;
+  const rows = [['พื้น Basement (วัดจริง)', FLOOR, 0], ['ท้องพื้น Slab (ช่องที่ตัด)', FLOOR - 0.40, 0.40], ['ท้อง Transfer beam', 94.12, FLOOR - 94.12], ['ระดับที่เจอของแข็ง (สมมติ)', FLOOR - H, H], ['ปลาย Core ที่วางแผน', FLOOR - H - cd, H + cd], ['ปลายเข็มตามแบบ', 81.17, FLOOR - 81.17]];
+  $('lv').innerHTML = `<tr><th>รายการ</th><th style="text-align:right">mRL</th><th style="text-align:right">ลึกจากพื้น (ม.)</th></tr>` + rows.map(([t, z, d]) => `<tr><td>${t}</td><td class="n">+${z.toFixed(3)}</td><td class="n">${d.toFixed(2)}</td></tr>`).join('');
+}
+function go(i, play = true) { step = Math.max(0, Math.min(STEPS.length - 1, i)); detail(); if (play) run(); else { anim = 1; draw(); } }
+function run() { cancelAnimationFrame(raf); const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches; if (reduce) { anim = 1; draw(); return; } const t0 = performance.now(), dur = 2600; (function f(t) { anim = Math.min(1, (t - t0) / dur); draw(); if (anim < 1) raf = requestAnimationFrame(f); })(t0); }
+STEPS.forEach((st, i) => { const b = document.createElement('button'); b.textContent = st.t; b.setAttribute('role', 'tab'); b.onclick = () => go(i); $('steps').appendChild(b); });
+$('prev').onclick = () => go(step - 1); $('next').onclick = () => go(step + 1); $('play').onclick = run;
+['set', 'hard', 'cd', 'bl', 'rl', 'off'].forEach(id => $(id).addEventListener('input', () => { calc(); anim = 1; draw(); }));
+calc(); go(0, false);
+</script>
+</body></html>
