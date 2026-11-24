@@ -72,7 +72,7 @@ td a{color:var(--accent)}
 #gantt .bar{cursor:pointer}
 #gantt .bar:hover rect,#gantt .bar:focus rect{stroke:var(--fg);stroke-width:1.5}
 </style></head><body>
-<nav><b>Pile wall Esplanade</b><a class="on" href="report.html?v=1795544802">รายงาน</a><a href="drawings.html?v=1795544802">แบบ</a><a href="sim.html?v=1795544802">จำลอง BP06</a><a href="index.html?v=1795544802">3D</a></nav>
+<nav><b>Pile wall Esplanade</b><a class="on" href="report.html?v=1795545036">รายงาน</a><a href="drawings.html?v=1795545036">แบบ</a><a href="sim.html?v=1795545036">จำลอง BP06</a><a href="index.html?v=1795545036">3D</a></nav>
 <main>
   <header><h1>รายงานงานเจาะ Bored pile Ø500 · BP1–BP100</h1><div class="sub">MRT Orange Line West · Basement Esplanade (Top supermarket / Food court / Restaurant) · ข้อมูลถึง 24.11.2026 · พื้น Basement จริง +97.519 mRL · หัวเข็ม +97.170 / ปลาย +81.170 ตามแบบ</div></header>
 
@@ -117,7 +117,7 @@ td a{color:var(--accent)}
         <li>ส่ง RFI รวมประเด็น: สิ่งกีดขวางใต้คาน, ระดับอ้างอิงต่าง 0.151 ม., ความยาวเข็ม 15 / 16 ม.</li>
       </ul>
       <h2 style="margin-top:14px">เอกสาร</h2>
-      <ul><li><a href="reports/Section.html?v=1795544802">รูปตัดตามแนว Pile wall BP1–BP100</a></li><li><a href="index.html?v=1795544802">โมเดล 3D หมุนดูได้</a></li></ul>
+      <ul><li><a href="reports/Section.html?v=1795545036">รูปตัดตามแนว Pile wall BP1–BP100</a></li><li><a href="index.html?v=1795545036">โมเดล 3D หมุนดูได้</a></li></ul>
     </div>
   </section>
 
@@ -197,7 +197,7 @@ D.groups.forEach((g, gi) => {
 function show(p) {
   const r = by[p.id], det = document.getElementById('det');
   let h = `<b>${p.id}</b> · ${ST[p.s]} · ห่างขอบ Transfer beam ${p.gap.toFixed(2)} ม.`;
-  if (r) h += `<br>${fd(r.date)} ${r.start || ''}${r.finish ? '–' + r.finish : ''} · ${r.depth != null ? 'เจาะได้ ' + r.depth.toFixed(2) + ' ม. (+' + (r.floor - r.depth).toFixed(3) + ' mRL)' : 'รออัปเดตความลึก'}${r.vol ? ' · คอนกรีต ' + r.vol + ' m³' : ''}<br>${r.obs || r.note || ''} ${r.pdf ? `· <a href="${r.pdf}?v=1795544802">ดูรายงาน</a>` : ''}`;
+  if (r) h += `<br>${fd(r.date)} ${r.start || ''}${r.finish ? '–' + r.finish : ''} · ${r.depth != null ? 'เจาะได้ ' + r.depth.toFixed(2) + ' ม. (+' + (r.floor - r.depth).toFixed(3) + ' mRL)' : 'รออัปเดตความลึก'}${r.vol ? ' · คอนกรีต ' + r.vol + ' m³' : ''}<br>${r.obs || r.note || ''} ${r.pdf ? `· <a href="${r.pdf}?v=1795545036">ดูรายงาน</a>` : ''}`;
   else if (p.s === 'pred') h += '<br>อยู่ในแนว Lean concrete ที่คาด (≤1.7 ม. จากขอบคาน) · แนะนำเลื่อนไปเจาะหลังยืนยันสิ่งกีดขวาง';
   else h += '<br>อยู่ห่างคานเกิน 1.7 ม. · เจาะได้ตามแผน';
   det.innerHTML = h;
@@ -212,7 +212,7 @@ document.getElementById('rows').innerHTML = D.recs.map(r => {
   const t = `${r.start || '-'}${r.finish ? '–' + r.finish : ''}${r.start2 ? `<br>${fd(r.date2)} ${r.start2}–${r.finish2}` : ''}`;
   const con = r.vol ? `${fd(r.pour_date)} ${r.pour_time}–${r.pour_end}<br>${r.vol} m³` : '-';
   const s = r.status === 'เทคอนกรีตแล้ว' ? 'done' : 'stuck';
-  return `<tr><td class="num"><b>${r.pile}</b></td><td class="num">${fd(r.date)}</td><td class="num">${t}</td><td><span class="tag" style="--c:${SC[s]}">${r.status}</span></td><td class="num">${cas}</td><td class="num">${dep}</td><td>${r.obs || r.note || ''}</td><td class="num">${con}</td><td>${r.pdf ? `<a href="${r.pdf}?v=1795544802">ดูรายงาน</a>` : ''}</td></tr>`;
+  return `<tr><td class="num"><b>${r.pile}</b></td><td class="num">${fd(r.date)}</td><td class="num">${t}</td><td><span class="tag" style="--c:${SC[s]}">${r.status}</span></td><td class="num">${cas}</td><td class="num">${dep}</td><td>${r.obs || r.note || ''}</td><td class="num">${con}</td><td>${r.pdf ? `<a href="${r.pdf}?v=1795545036">ดูรายงาน</a>` : ''}</td></tr>`;
 }).join('');
 // photos
 document.getElementById('photos').innerHTML = Object.entries(D.photos).map(([k, v]) => {
