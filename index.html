@@ -46,7 +46,7 @@ label.ly input:not(:checked)~span.t{color:var(--muted);text-decoration:line-thro
 .chip,.views{top:60px!important}#info{top:128px!important}
 </style>
 <div id="app">
-  <nav id="topnav"><b>Pile wall Esplanade</b><a href="report.html?v=1795787853">รายงาน</a><a href="drawings.html?v=1795787853">แบบ</a><a href="sim.html?v=1795787853">จำลอง BP06</a><a class="on" href="index.html?v=1795787853">3D</a></nav>
+  <nav id="topnav"><b>Pile wall Esplanade</b><a href="report.html?v=1795858240">รายงาน</a><a href="drawings.html?v=1795858240">แบบ</a><a href="sim.html?v=1795858240">จำลอง BP06</a><a class="on" href="index.html?v=1795858240">3D</a></nav>
   <canvas id="cv" aria-label="โมเดล 3 มิติ Pile wall Esplanade"></canvas>
   <div class="chip">
     <h1>Pile wall Esplanade · 3D</h1>
@@ -60,7 +60,7 @@ label.ly input:not(:checked)~span.t{color:var(--muted);text-decoration:line-thro
   <div id="info" hidden></div>
   <section id="sheet" class="closed">
     <header><b>ชั้นข้อมูล</b><span class="hint">ลากหมุน · 2 นิ้วซูม/เลื่อน · แตะดูข้อมูล</span><button id="tog" aria-expanded="false">เปิด</button></header>
-    <div id="legend"><span><i style="background:var(--stuck)"></i>ตอก Casing ติด 4</span><span><i style="background:#9b1c1c"></i>แทงเหล็กติด 7</span><span><i style="background:#1aa39a"></i>แทงผ่าน เจาะได้ 3</span><span><i style="background:#f0961e"></i>คาดว่าจะติด 17</span><span><i style="background:var(--done)"></i>เทแล้ว 2</span><span><i style="background:#9aa5a0"></i>ยังไม่ตรวจ 67</span></div>
+    <div id="legend"><span><i style="background:var(--stuck)"></i>ตอก Casing ติด 4</span><span><i style="background:#9b1c1c"></i>แทงเหล็กติด 7</span><span><i style="background:#7c4dcc"></i>แทงผ่าน เจาะได้ 3</span><span><i style="background:#f0961e"></i>คาดว่าจะติด 17</span><span><i style="background:var(--done)"></i>เทแล้ว 2</span><span><i style="background:#9aa5a0"></i>ยังไม่ตรวจ 67</span></div>
     <div id="layers"></div>
   </section>
 </div>
@@ -1209,7 +1209,7 @@ D.walls.forEach(w => {
 D.cols.forEach(c => prism(c.pts, LV.slab_top, LV.slab_top + 4, c.d ? mat('#6e7471') : mat('#b9bdbb', 0.4), c.d ? 'cols' : 'colx',
   `เสาอาคาร ${c.id} 0.90×0.90 ${c.d ? '(ตามแบบผนังรื้อถอน)' : '(ต่อกริด 10.51×11.26 ม. – ต้องตรวจสอบ)'} · สูง 4.0 ม. สมมติ`));
 // piles
-const PC = {none: mat('#9aa5a0', 0.55), stuck: mat(css('--stuck') || '#c2352b'), done: mat(css('--done') || '#1f8a4c'), ghost: mat('#c2352b', 0.15), pred: mat('#f0961e', 0.9), pstuck: mat('#9b1c1c'), drilling: mat('#2f6fd6'), clear: mat('#1aa39a', 0.95)};
+const PC = {none: mat('#9aa5a0', 0.55), stuck: mat(css('--stuck') || '#c2352b'), done: mat(css('--done') || '#1f8a4c'), ghost: mat('#c2352b', 0.15), pred: mat('#f0961e', 0.9), pstuck: mat('#9b1c1c'), drilling: mat('#2f6fd6'), clear: mat('#7c4dcc', 0.95)};
 const ST = {none: 'ยังไม่เจาะ', stuck: 'ติดอุปสรรค', done: 'เทคอนกรีตแล้ว', pred: 'ยังไม่เจาะ · คาดว่าจะติด (ห่างขอบคาน ≤1.45 ม. หรืออยู่ช่วง TB8–TB9)', pstuck: 'แทงเหล็กตรวจ 25.11 พบอุปสรรค', drilling: 'กำลังเจาะ · ทะลุพื้นลีนคอนกรีต (หนา ≈0.30 ม. ที่ 3.00 ม.) ด้วยตุ้มกระแทก · เจาะได้ 10.00 ม.', clear: 'แทงเหล็กตรวจแล้ว ไม่พบอุปสรรค · เจาะได้'};
 D.piles.forEach(p => {
   const z0 = p.z0, z1 = LV.pile_top, g = new THREE.CylinderGeometry(0.25, 0.25, z1 - z0, 16);
@@ -1219,7 +1219,7 @@ D.piles.forEach(p => {
   if (p.s === 'stuck' || p.s === 'pstuck') { const gg = new THREE.Mesh(new THREE.CylinderGeometry(0.25, 0.25, z0 - LV.toe, 12), PC.ghost); gg.position.copy(W(p.x, (z0 + LV.toe) / 2, p.y)); groups.piles.add(gg); }
   const n = +p.id.slice(2);
   const hi = p.s === 'stuck' || p.s === 'pstuck' || p.s === 'done' || p.s === 'clear' || p.s === 'drilling';
-  if (n === 1 || n % 10 === 0 || hi) label(p.id, W(p.x, LV.slab_top + (hi ? 1.6 : 0.8), p.y), 'lab', hi ? 0.8 : 0.65, (p.s === 'stuck' || p.s === 'pstuck') ? '#c2352b' : p.s === 'done' ? '#1f8a4c' : p.s === 'clear' ? '#137a73' : '#18211e');
+  if (n === 1 || n % 10 === 0 || hi) label(p.id, W(p.x, LV.slab_top + (hi ? 1.6 : 0.8), p.y), 'lab', hi ? 0.8 : 0.65, (p.s === 'stuck' || p.s === 'pstuck') ? '#c2352b' : p.s === 'done' ? '#1f8a4c' : p.s === 'clear' ? '#5b33a8' : '#18211e');
 });
 
 // layer panel
